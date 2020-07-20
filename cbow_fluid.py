@@ -1,9 +1,7 @@
-import pyximport;
-
-pyximport.install()
-import paddle.v2.fluid as fluid
+import pyximport;pyximport.install()
+import paddle.fluid as fluid
 from utils.data_reader import reader_creator
-import paddle.v2 as paddle
+import paddle
 
 MAX_DICT_SIZE = 14898
 
@@ -12,7 +10,7 @@ def main(window_size, dict_size=10000, emb_size=32, num_neg_samples=10,
          batch_size=512, with_parallel_do=False, sparse_update=True):
     assert window_size % 2 == 1
     words = []
-    for i in xrange(window_size):
+    for i in range(window_size):
         words.append(fluid.layers.data(name='word_{0}'.format(i), shape=[1],
                                        dtype='int64'))
 
@@ -21,7 +19,7 @@ def main(window_size, dict_size=10000, emb_size=32, num_neg_samples=10,
 
     def networks(word_list):
         embs = []
-        for i in xrange(window_size):
+        for i in range(window_size):
             if i == label_word:
                 continue
 
@@ -70,13 +68,13 @@ def main(window_size, dict_size=10000, emb_size=32, num_neg_samples=10,
                            word_limit=dict_size - 1,
                            path="./preprocessed"), 4000), batch_size)
 
-    for pass_id in xrange(100):
+    for pass_id in range(100):
         fluid.io.save_params(exe, dirname='model_{0}'.format(pass_id))
         for batch_id, data in enumerate(reader()):
             avg_loss_np = exe.run(feed=feeder.feed(data), fetch_list=[avg_loss])
-            print "Pass ID {0}, Batch ID {1}, Loss {2}".format(pass_id,
+            print("Pass ID {0}, Batch ID {1}, Loss {2}".format(pass_id,
                                                                batch_id,
-                                                               avg_loss_np[0])
+                                                               avg_loss_np[0]))
 
 
 if __name__ == '__main__':

@@ -3,10 +3,13 @@
 cd `dirname $0`
 echo "Generating Word Dict"
 
-pv data/data/* | python preprocess_scripts/generate_word_dict.py > word_dict
+#pv data/data/* | python preprocess_scripts/generate_word_dict.py > word_dict
+cat data/data/* | python preprocess_scripts/generate_word_dict.py > word_dict
+#cat data/data/data_aa | python preprocess_scripts/generate_word_dict.py > word_dict
 
 echo "Convert Word Dict to Python Pickle Format"
-pv word_dict | python preprocess_scripts/convert_word_dict_to_pkl.py >word_dict.pkl
+#pv word_dict | python preprocess_scripts/convert_word_dict_to_pkl.py >word_dict.pkl
+cat word_dict | python preprocess_scripts/convert_word_dict_to_pkl.py >word_dict.pkl
 
 echo "Convert Text to Pickle Format"
 mkdir -p preprocessed/data/data

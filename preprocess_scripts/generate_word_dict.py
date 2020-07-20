@@ -1,5 +1,9 @@
+#coding=utf-8
+
 import collections
 import sys
+reload(sys)
+sys.setdefaultencoding('utf-8')
 
 word_dict = collections.defaultdict(int)
 for line in sys.stdin:
@@ -17,4 +21,4 @@ for i, key in enumerate(word_dict):
 word_list.sort(key=lambda x: x[1], reverse=True)
 
 for w, cnt in word_list:
-    print cnt, w.encode('utf-8')
+    print(cnt, w)

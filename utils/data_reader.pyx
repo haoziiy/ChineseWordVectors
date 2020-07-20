@@ -1,5 +1,7 @@
+#coding=utf-8
+#cython: language_level=3
 import os
-import cPickle
+import pickle
 import random
 
 __all__ = ['reader_creator']
@@ -9,7 +11,7 @@ def reader(filename, window_size, word_limit):
     s = word_limit
     e = word_limit + 1
     with open(filename, 'rb') as f:
-        sentences = cPickle.load(f)
+        sentences = pickle.load(f)
         random.shuffle(sentences)
         for sentence in sentences:
             sentence = filter(lambda x: x < word_limit, sentence)
